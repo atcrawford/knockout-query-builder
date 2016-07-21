@@ -5,16 +5,15 @@ window.QueryBuilder = (function(exports, ko) {
 
         self.templateName = 'condition-template';
 
-        self.fields = ko.observableArray(['Points', 'Goals', 'Assists', 'Shots', 'Shot%', 'PPG', 'SHG', 'Penalty Mins']);
         self.selectedField = ko.observable('Points');
-
-        self.comparisons = ko.observableArray(['=', '<>', '<', '<=', '>', '>=']);
         self.selectedComparison = ko.observable('=');
-
-        self.logicalOperators = ko.observableArray(['AND', 'OR']);
         self.selectedLogicalOperator = ko.observable('AND');
 
         self.value = ko.observable(0);
+
+        self.IsNotLastChild = function(index, parentArrayLength) {
+            return index !== (parentArrayLength - 1);
+        }
 
         // the text() function is just an example to show output
         self.text = ko.computed(function() {
@@ -24,7 +23,7 @@ window.QueryBuilder = (function(exports, ko) {
                 ' ' +
                 self.value() +
                 ' ' +
-                (self.selectedLogicalOperator() != 'N/A' ? self.selectedLogicalOperator() : '') +
+                self.selectedLogicalOperator() +
                 ' ';
         });
     }

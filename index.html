@@ -23,12 +23,12 @@
     <!-- HTML Template For Conditions -->
     <script id="condition-template" type="text/html">
         <div class="condition">
-            <select data-bind="options: fields, value: selectedField"></select>
-            <select data-bind="options: comparisons, value: selectedComparison"></select>
+            <select data-bind="options: $parent.fields, value: selectedField"></select>
+            <select data-bind="options: $parent.comparisons, value: selectedComparison"></select>
             <input type="text" data-bind="value: value"></input>
             <button class="btn btn-danger btn-xs" data-bind="click: $parent.removeChild"><span class="glyphicon glyphicon-minus-sign"></span></button>
         </div>
-        <select data-bind="options: logicalOperators, value: selectedLogicalOperator"></select>
+        <select data-bind="visible: IsNotLastChild($index(), $parent.children().length), options: $parent.logicalOperators, value: selectedLogicalOperator"></select>
     </script>
 
     <!-- HTML Template For Groups -->

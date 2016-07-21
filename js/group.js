@@ -5,6 +5,10 @@ window.QueryBuilder = (function(exports, ko) {
     function Group() {
         var self = this;
 
+        self.fields = ko.observableArray(['Points', 'Goals', 'Assists', 'Shots', 'Shot%', 'PPG', 'SHG', 'Penalty Mins']);
+        self.comparisons = ko.observableArray(['=', '<>', '<', '<=', '>', '>=']);
+        self.logicalOperators = ko.observableArray(['AND', 'OR']);
+
         self.templateName = 'group-template';
         self.children = ko.observableArray();
 
@@ -22,6 +26,10 @@ window.QueryBuilder = (function(exports, ko) {
         self.removeChild = function(child) {
             self.children.remove(child);
         };
+
+        self.childrenChanged = ko.computed(function() {
+            console.log(ko.toJS(self.children()));
+        })
 
         // the text() function is just an example to show output
         self.text = ko.computed(function() {
