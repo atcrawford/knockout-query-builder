@@ -1,30 +1,35 @@
-window.QueryBuilder = (function(exports, ko){
+window.QueryBuilder = (function(exports, ko) {
 
-  function Condition(){
-    var self = this;
+    function Condition() {
+        var self = this;
 
-    self.templateName = 'condition-template';
+        self.templateName = 'condition-template';
 
-    self.fields = ko.observableArray(['Points', 'Goals', 'Assists', 'Shots', 'Shot%', 'PPG', 'SHG', 'Penalty Mins']);
-    self.selectedField = ko.observable('Points');
-    
-    self.comparisons = ko.observableArray(['=', '<>', '<', '<=', '>', '>=']);
-   
-    self.selectedComparison = ko.observable('=');
+        self.fields = ko.observableArray(['Points', 'Goals', 'Assists', 'Shots', 'Shot%', 'PPG', 'SHG', 'Penalty Mins']);
+        self.selectedField = ko.observable('Points');
 
-    self.value = ko.observable(0);
+        self.comparisons = ko.observableArray(['=', '<>', '<', '<=', '>', '>=']);
+        self.selectedComparison = ko.observable('=');
 
-    // the text() function is just an example to show output
-    self.text = ko.computed(function(){
-      return self.selectedField() + 
-        ' ' +
-        self.selectedComparison() + 
-        ' ' + 
-        self.value();
-    });
-  }
+        self.logicalOperators = ko.observableArray(['AND', 'OR']);
+        self.selectedLogicalOperator = ko.observable('AND');
 
-  exports.Condition = Condition;
-  return exports;
+        self.value = ko.observable(0);
+
+        // the text() function is just an example to show output
+        self.text = ko.computed(function() {
+            return self.selectedField() +
+                ' ' +
+                self.selectedComparison() +
+                ' ' +
+                self.value() +
+                ' ' +
+                (self.selectedLogicalOperator() != 'N/A' ? self.selectedLogicalOperator() : '') +
+                ' ';
+        });
+    }
+
+    exports.Condition = Condition;
+    return exports;
 
 })(window.QueryBuilder || {}, window.ko);
